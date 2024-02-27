@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MR-Scene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 0
+    path: Assets/Scenes/VR-Scene.unity
+    guid: 3d3e43421cfb44e0c86dde547cb868a0
+  - enabled: 0
+    path: Assets/Samples/Meta XR Interaction SDK OVR Samples/62.0.0/Example Scenes/PanelWithManipulators.unity
+    guid: bafd0df297556dd44832193b22fca1ae
+  - enabled: 0
+    path: Assets/Samples/Meta XR Interaction SDK OVR Samples/62.0.0/Example Scenes/PokeExamples.unity
+    guid: ada3086bde0ab18459589e22d8d9e182
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 4e5714f49e4cf4b47b977c125692e604,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 9693e35a2a0e8438087942a99e3f3f22,
+      type: 2}
