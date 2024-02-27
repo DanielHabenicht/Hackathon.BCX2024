@@ -58,7 +58,7 @@ namespace M2MqttUnity.Examples
 
         public void TestPublish()
         {
-            client.Publish("doPistonOut", System.Text.Encoding.UTF8.GetBytes("true"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            client.Publish("M2MQTT_Unity/test", System.Text.Encoding.UTF8.GetBytes("Test message"), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
             Debug.Log("Test message published");
             AddUiMessage("Test message published.");
         }
@@ -122,12 +122,12 @@ namespace M2MqttUnity.Examples
 
         protected override void SubscribeTopics()
         {
-            client.Subscribe(new string[] { "doPistonOut" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            client.Subscribe(new string[] { "M2MQTT_Unity/test" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
         }
 
         protected override void UnsubscribeTopics()
         {
-            client.Unsubscribe(new string[] { "doPistonOut" });
+            client.Unsubscribe(new string[] { "M2MQTT_Unity/test" });
         }
 
         protected override void OnConnectionFailed(string errorMessage)
