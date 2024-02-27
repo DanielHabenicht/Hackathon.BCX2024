@@ -26,3 +26,9 @@ https://github.com/Bosch-ConnectedExperience-2024/IBM_Gettingstarted/blob/main/u
 local API
 
 https://fetch.ai/docs/apis/ai-engine/chat
+
+
+
+Convert Video
+
+ffmpeg -ss 00:05 -i .\VID_20240227_175731.mp4 -vcodec libx265 -crf 30 output.mp4
