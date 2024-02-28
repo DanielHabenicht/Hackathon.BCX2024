@@ -5,3 +5,9 @@ TS-AC-OCE-DOK_CD
 CREDENTIALS.md
 *.mp4
 *.mp3
+.env
+
+__pycache__
+obj
+bin
+.venv

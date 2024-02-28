@@ -31,4 +31,4 @@ https://fetch.ai/docs/apis/ai-engine/chat
 
 Convert Video
 
-ffmpeg -ss 00:05 -i .\VID_20240227_175731.mp4 -vcodec libx265 -crf 30 output.mp4
+ffmpeg -ss 00:05 -i .\VID_20240228_080540.mp4 -vcodec libx265 -crf 30 output.mp4

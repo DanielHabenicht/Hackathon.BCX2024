@@ -2,3 +2,8 @@ google-cloud-speech
 google-cloud-texttospeech
 pyaudio
 playsound==1.2.2
+python-dotenv
+pandas
+paho-mqtt
+uagents
+uagents-ai-engine
