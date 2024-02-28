@@ -1,0 +1,4 @@
+deepsearch-toolkit==0.40.0
+fastapi
+uvicorn[standard]
+python-dotenv
