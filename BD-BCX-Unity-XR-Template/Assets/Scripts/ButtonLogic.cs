@@ -10,6 +10,12 @@ public class ButtonLogic : MonoBehaviour
     public String PayloadVar;
     public M2MqttUnityTest client;
     public bool isConnectButton;
+    public bool isPistonButton;
+    public bool isBeltButton;
+    public MachineModelBehaviour machineModelBehaviour;
+
+    public bool testIsRunning = false;
+    public float testStartedAt;
     
     
 
@@ -32,15 +38,36 @@ public class ButtonLogic : MonoBehaviour
                 client.SetBrokerPort("1883");
                 client.Connect();
             }
-            else
+            else if(isPistonButton)
             {
+                if(PayloadVar == "true")
+                {
+                    machineModelBehaviour.extendPiston = true;
+                }
+                else
+                {
+                    machineModelBehaviour.extendPiston = false;
+                }
                 client.PublishPayload(PayloadVar);
+            }
+            else if(isBeltButton)
+            {
+                testIsRunning = true;
+                testStartedAt = Time.time;
             }
 
             //client.TestPublish();
             //this.gameObject.SetActive(false);
         }
-   
+        if (testIsRunning)
+        {
+            if (Time.time - testStartedAt > 2)
+            {
+                machineModelBehaviour.highlightBelt = true;
+                testIsRunning = false;
+            }
+        }
+
     }
 
 }
