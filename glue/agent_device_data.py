@@ -26,10 +26,8 @@ def on_connect(client, userdata, flags, reason_code):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
-    if msg.topic == "isPistonOut":
-        piston_status = "extended"
     if msg.topic == "doPistonOut":
-        piston_status = "retracted"
+        piston_status = "retracted" if bool(msg.payload) else "extended" 
     if msg.topic == "BeltPosition":
         belt_position = str(msg.payload)
 
