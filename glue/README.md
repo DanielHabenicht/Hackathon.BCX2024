@@ -28,3 +28,9 @@ python -m pip install -r requirements.txt
 Convert Video
 
 ffmpeg -ss 00:05 -i .\VID_20240228_080540.mp4 -vcodec libx265 -crf 30 output.mp4
+
+Example Question: 
+
+- Can you extend the pneumatic cylinder?
+- Whats the nominal pressure the pneumatics system should be operated on?
+- What is the current system pressure?

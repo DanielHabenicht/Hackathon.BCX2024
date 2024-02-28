@@ -4,9 +4,9 @@ from deepsearch.cps.client.components.data_indices import (
     ElasticProjectDataCollectionSource,
 )
 from deepsearch.cps.client.components.elastic import ElasticProjectDataCollectionSource
-from deepsearch.cps.queries import CorpusSemanticQuery
+from deepsearch.cps.queries import CorpusRAGQuery
 from deepsearch.cps.queries.results import RAGResult, SearchResult, SearchResultItem
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, Response, HTTPException, status
 from pydantic import BaseModel
 from typing import Annotated
 
@@ -68,24 +68,17 @@ async def query_private_documents(
     """
 
     proj_key = "5db97e2fe6b063d0d539b434111264c7b23c265b"
-    index_key = "25592cabf6b77b90bd49ac17e8c2d44a5acfb703",
+    index_key = "25592cabf6b77b90bd49ac17e8c2d44a5acfb703"
 
-    question_query = CorpusSemanticQuery(
+    print(query)
+    # submit natural-language query on collection
+    question_query = CorpusRAGQuery(
         question=query,
         project=proj_key,
         index_key=index_key,
-        # optional params:
-        retr_k=num_items,
-        # text_weight=TEXT_WEIGHT,
-        # rerank=RERANK,
     )
     api_output = api.queries.run(question_query)
-    search_result = SearchResult.from_api_output(api_output)
-
-    return QueryResponse(
-        results=[
-            QueryResponseResultItem.model_validate_json(item.json())
-            for item in search_result.search_result_items
-        ]
-    )
+    rag_result = RAGResult.from_api_output(api_output)
+    
+    return Response(content=rag_result.json(), media_type="application/json")
 

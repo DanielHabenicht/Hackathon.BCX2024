@@ -2,6 +2,7 @@ from pydantic import Field
 from uagents import Agent, Context, Model, Protocol
 from dotenv import load_dotenv
 import os
+import requests
 
 from ai_engine import UAgentResponse, UAgentResponseType
 
@@ -36,9 +37,25 @@ manual_search_action = Protocol("ManualSearchAction")
 
 @manual_search_action.on_message(model=AgentAction, replies={UAgentResponse})
 async def handle_message(ctx: Context, sender: str, msg: AgentAction):
-    if msg.question == "in":
-        # request....
-        message = "Dummy agent worked: " + msg.question
+    if msg.question is not None:
+        print(msg.question)
+
+        # Assuming the local REST API is running on http://localhost:8000
+        api_url = "http://localhost:8000/query"
+
+        query = f"In context of the user looking at the sensor of type '{msg.device_type}' he is asking the following question: " 
+        query += msg.question
+
+        # Make a GET request to the local REST API with the query parameter
+        response = requests.get(f"{api_url}?query={query}")
+
+        data = response.json()
+        print(data)
+        # Retrieve the result from the response
+        message = data["answers"][0]["answer"]
+
+        # Print the result
+        print(message)
     await ctx.send(
         sender, UAgentResponse(message=message, type=UAgentResponseType.FINAL)
 )
