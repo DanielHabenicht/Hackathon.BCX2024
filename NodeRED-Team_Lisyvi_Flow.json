@@ -1,0 +1,780 @@
+[
+    {
+        "id": "4516481f92f40483",
+        "type": "tab",
+        "label": "Team_Lisyvi_FLow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ba5c3281fdc21340",
+        "type": "ctrlx-datalayer-subscribe",
+        "z": "4516481f92f40483",
+        "subscription": "5e0cb1bc10964565",
+        "path": "framework/metrics/system/cpu-utilisation-percent",
+        "name": "",
+        "inputs": 0,
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "8cb3c013d2fad110"
+            ]
+        ]
+    },
+    {
+        "id": "8cb3c013d2fad110",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "ctrlXcpuLoad",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 630,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "7eb68b13f8e61cf7",
+        "type": "aedes broker",
+        "z": "4516481f92f40483",
+        "name": "",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "dburl": "",
+        "usetls": false,
+        "x": 190,
+        "y": 60,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "19cd53f84ebf9fc8",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "BeltPositionRaw",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 800,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "5b2a2f881cfa2111",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "fieldbuses/ethercat/master/instances/ethercatmaster/realtime_data/input/data/IndraDrive_MPE20/AT.Position_feedback_value_1",
+        "payloadFormat": "value_type",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 440,
+        "y": 980,
+        "wires": [
+            [
+                "19cd53f84ebf9fc8"
+            ]
+        ]
+    },
+    {
+        "id": "cb4fe610ecdf9c61",
+        "type": "inject",
+        "z": "4516481f92f40483",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 980,
+        "wires": [
+            [
+                "5b2a2f881cfa2111",
+                "1c32ef01970c84c7",
+                "261b6981c1c5eae0"
+            ]
+        ]
+    },
+    {
+        "id": "5ca6d053ee2d3f42",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "BeltPosition",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 790,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "261b6981c1c5eae0",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "motion/axs/Belt/state/values/actual/pos/grad",
+        "payloadFormat": "value",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 470,
+        "y": 1040,
+        "wires": [
+            [
+                "5ca6d053ee2d3f42"
+            ]
+        ]
+    },
+    {
+        "id": "d76bea90fd8440cf",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "WRITE",
+        "path": "fieldbuses/ethercat/master/instances/ethercatmaster/realtime_data/output/data/XI211208/Channel_5.Value",
+        "payloadFormat": "value_type",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 630,
+        "y": 320,
+        "wires": [
+            [
+                "62fe613088954fbe"
+            ]
+        ]
+    },
+    {
+        "id": "0072b6a1ce7552a6",
+        "type": "inject",
+        "z": "4516481f92f40483",
+        "name": "out (true)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\":\"bool8\",\"value\":true}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 280,
+        "wires": [
+            [
+                "d76bea90fd8440cf"
+            ]
+        ]
+    },
+    {
+        "id": "fe80c1493d535c23",
+        "type": "inject",
+        "z": "4516481f92f40483",
+        "name": "in (false)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\":\"bool8\",\"value\":false}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "d76bea90fd8440cf"
+            ]
+        ]
+    },
+    {
+        "id": "c930e69f4a6b2d44",
+        "type": "mqtt in",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "doPistonOut",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "bfc37ac89b05e178",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 320,
+        "wires": [
+            [
+                "a9aec7ade6c84d6a"
+            ]
+        ]
+    },
+    {
+        "id": "df92156cb68d90d6",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "motion/axs/Belt/state/values/actual/acc/deg-per-s^2",
+        "payloadFormat": "value",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 480,
+        "y": 460,
+        "wires": [
+            [
+                "e737aed087ca9d55"
+            ]
+        ]
+    },
+    {
+        "id": "ef16d0de31408852",
+        "type": "inject",
+        "z": "4516481f92f40483",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 460,
+        "wires": [
+            [
+                "df92156cb68d90d6",
+                "72313bf71c698e02",
+                "bfb470673e866930",
+                "27ee94bcb5ec16b3"
+            ]
+        ]
+    },
+    {
+        "id": "e737aed087ca9d55",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "BeltAcc2",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 850,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "718156702459e53d",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "isPistonOut",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 1090,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "a9aec7ade6c84d6a",
+        "type": "function",
+        "z": "4516481f92f40483",
+        "name": "format",
+        "func": "msg.payload = {\"type\":\"bool8\",\"value\":msg.payload}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 320,
+        "wires": [
+            [
+                "d76bea90fd8440cf"
+            ]
+        ]
+    },
+    {
+        "id": "62fe613088954fbe",
+        "type": "function",
+        "z": "4516481f92f40483",
+        "name": "format",
+        "func": "msg.payload = msg.payload.value\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 320,
+        "wires": [
+            [
+                "718156702459e53d"
+            ]
+        ]
+    },
+    {
+        "id": "ed81feaf09bf58be",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "axisprofile/system/opstate/actual",
+        "payloadFormat": "value_type",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "957b761763f01ba5"
+            ]
+        ]
+    },
+    {
+        "id": "957b761763f01ba5",
+        "type": "debug",
+        "z": "4516481f92f40483",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "437820405e175b0d",
+        "type": "inject",
+        "z": "4516481f92f40483",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "ed81feaf09bf58be"
+            ]
+        ]
+    },
+    {
+        "id": "72313bf71c698e02",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "fieldbuses/ethercat/master/instances/ethercatmaster/realtime_data/input/data/XI110208/Channel_5.Value",
+        "payloadFormat": "value",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 460,
+        "y": 540,
+        "wires": [
+            [
+                "1375a6e2866ce842"
+            ]
+        ]
+    },
+    {
+        "id": "1375a6e2866ce842",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "ProximitySensorLeft",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 880,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "bfb470673e866930",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "fieldbuses/ethercat/master/instances/ethercatmaster/realtime_data/input/data/XI110208/Channel_6.Value",
+        "payloadFormat": "value",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 460,
+        "y": 600,
+        "wires": [
+            [
+                "04be7fcc59c7c504"
+            ]
+        ]
+    },
+    {
+        "id": "04be7fcc59c7c504",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "ProximitySensorRight",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 880,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "27ee94bcb5ec16b3",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "fieldbuses/ethercat/master/instances/ethercatmaster/realtime_data/input/data/XI110208/Channel_7.Value",
+        "payloadFormat": "value",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 460,
+        "y": 680,
+        "wires": [
+            [
+                "371f20da7041461a"
+            ]
+        ]
+    },
+    {
+        "id": "371f20da7041461a",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "isPistonTopOut",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 860,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "1c32ef01970c84c7",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "READ",
+        "path": "motion/axs/Belt/state/opstate/plcopen",
+        "payloadFormat": "value_type",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 450,
+        "y": 920,
+        "wires": [
+            [
+                "e2f546677319ce16"
+            ]
+        ]
+    },
+    {
+        "id": "e2f546677319ce16",
+        "type": "mqtt out",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "BeltMovement",
+        "qos": "2",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "bfc37ac89b05e178",
+        "x": 800,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "430d82e8b8a20eec",
+        "type": "ctrlx-datalayer-request",
+        "z": "4516481f92f40483",
+        "device": "99ce11f0dd8eae0f",
+        "method": "CREATE",
+        "path": "motion/axs/Belt/cmd/velocity",
+        "payloadFormat": "value_type",
+        "name": "",
+        "pendingWarnLevel": 50,
+        "pendingErrorLevel": 100,
+        "x": 670,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ab88add70e8135f",
+        "type": "inject",
+        "z": "4516481f92f40483",
+        "name": "start (800)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "800",
+        "payloadType": "num",
+        "x": 160,
+        "y": 760,
+        "wires": [
+            [
+                "3f4dc4f67bf7eab0"
+            ]
+        ]
+    },
+    {
+        "id": "b264caa19979db8c",
+        "type": "inject",
+        "z": "4516481f92f40483",
+        "name": "stop (0)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 150,
+        "y": 840,
+        "wires": [
+            [
+                "3f4dc4f67bf7eab0"
+            ]
+        ]
+    },
+    {
+        "id": "7b2c8f3582487fbf",
+        "type": "mqtt in",
+        "z": "4516481f92f40483",
+        "name": "",
+        "topic": "setConveyorSpeed",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "bfc37ac89b05e178",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 800,
+        "wires": [
+            [
+                "3f4dc4f67bf7eab0"
+            ]
+        ]
+    },
+    {
+        "id": "3f4dc4f67bf7eab0",
+        "type": "function",
+        "z": "4516481f92f40483",
+        "name": "format",
+        "func": "msg.payload = {\"type\":\"object\",\"value\":{\"axsVel\":msg.payload,\"driveVelMode\":false,\"buffered\":false,\"lim\":{\"vel\":\"801\",\"acc\":\"550\",\"dec\":\"550\",\"jrkAcc\":\"0\",\"jrkDec\":\"0\"}}}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 800,
+        "wires": [
+            [
+                "430d82e8b8a20eec"
+            ]
+        ]
+    },
+    {
+        "id": "5e0cb1bc10964565",
+        "type": "ctrlx-config-subscription",
+        "device": "99ce11f0dd8eae0f",
+        "name": "localhost",
+        "publishIntervalMs": "",
+        "publishIntervalUnits": "seconds",
+        "samplingInterval": "",
+        "samplingIntervalUnits": "seconds",
+        "errorInterval": "",
+        "errorIntervalUnits": "seconds",
+        "keepaliveInterval": "",
+        "keepaliveIntervalUnits": "minutes",
+        "queueSize": "",
+        "queueBehaviour": "DiscardOldest",
+        "deadbandValue": ""
+    },
+    {
+        "id": "bfc37ac89b05e178",
+        "type": "mqtt-broker",
+        "name": "localhost",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "99ce11f0dd8eae0f",
+        "type": "ctrlx-config",
+        "name": "",
+        "hostname": "localhost",
+        "debug": false
+    }
+]
