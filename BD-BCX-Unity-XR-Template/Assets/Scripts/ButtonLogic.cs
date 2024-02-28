@@ -54,6 +54,7 @@ public class ButtonLogic : MonoBehaviour
             {
                 testIsRunning = true;
                 testStartedAt = Time.time;
+                client.PublishPayloadBelt("200");
             }
 
             //client.TestPublish();
@@ -61,10 +62,15 @@ public class ButtonLogic : MonoBehaviour
         }
         if (testIsRunning)
         {
-            if (Time.time - testStartedAt > 2)
+            if (Time.time - testStartedAt > 10)
+            {
+                machineModelBehaviour.highlightBelt = false;
+                testIsRunning = false;
+            }
+            else if (Time.time - testStartedAt > 5)
             {
                 machineModelBehaviour.highlightBelt = true;
-                testIsRunning = false;
+                client.PublishPayloadBelt("0");
             }
         }
 

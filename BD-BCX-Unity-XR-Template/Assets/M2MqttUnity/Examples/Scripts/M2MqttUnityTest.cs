@@ -67,6 +67,11 @@ namespace M2MqttUnity.Examples
             client.Publish("doPistonOut", Encoding.ASCII.GetBytes(pPayload), 0x02, false);
         }
 
+        public void PublishPayloadBelt(String pPayload)
+        {
+            client.Publish("setConveyorSpeed", Encoding.ASCII.GetBytes(pPayload), 0x02, false);
+        }
+
 
         public void SetBrokerAddress(string brokerAddress)
         {
