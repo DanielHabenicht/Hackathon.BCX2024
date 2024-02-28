@@ -15,6 +15,8 @@ public class MachineModelBehaviour : MonoBehaviour
 
     public int lastHighlightSwitch;
 
+    public Vector3 extendedPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class MachineModelBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (beltHighlight)
+        if (highlightBelt)
         {
             lastHighlightSwitch++;
             if(lastHighlightSwitch > 10)
@@ -38,5 +40,21 @@ public class MachineModelBehaviour : MonoBehaviour
                 lastHighlightSwitch = 0;
             }
         }
+
+            if (extendPiston)
+            {
+                if(pistonHead.transform.localPosition.z < extendedPosition.z)
+                {
+                    pistonHead.transform.SetLocalPositionAndRotation(pistonHead.transform.localPosition + extendedPosition / 20, Quaternion.identity);
+                }
+            }
+            else
+            {
+                if(pistonHead.transform.localPosition.z > 0)
+                {
+                    pistonHead.transform.SetLocalPositionAndRotation(pistonHead.transform.localPosition - extendedPosition / 20, Quaternion.identity);
+                }
+            }
+        
     }
 }
